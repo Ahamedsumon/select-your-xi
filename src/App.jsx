@@ -1,9 +1,12 @@
 import "./App.css";
+import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
 
 function App() {
   return (
     <>
-      <div className="text-5xl">Vite + react</div>
+      <Header></Header>
+      <Hero></Hero>
     </>
   );
 }
