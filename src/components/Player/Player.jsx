@@ -1,7 +1,14 @@
+import { useState } from "react";
 import { FaUserLarge } from "react-icons/fa6";
 import { IoFlag } from "react-icons/io5";
 
-const Player = ({ player, availableBalance, setAvailableBalance }) => {
+const Player = ({
+  player,
+  availableBalance,
+  setAvailableBalance,
+  handlePlayersData,
+}) => {
+  const [btnDisabled, setBtnDisabled] = useState(false);
   const {
     bating_style,
     bowling_style,
@@ -21,6 +28,8 @@ const Player = ({ player, availableBalance, setAvailableBalance }) => {
       return;
     }
     setAvailableBalance(availableBalance - playerPrice);
+    setBtnDisabled(true);
+    handlePlayersData(player);
   };
   return (
     <div>
@@ -57,9 +66,13 @@ const Player = ({ player, availableBalance, setAvailableBalance }) => {
           </p>
           <p className="flex items-center justify-between">
             <span className="font-bold">Price: $ ${price}</span>{" "}
-            <span className="btn" onClick={() => handleSelectedPlayers(player)}>
-              Choose Player
-            </span>
+            <button
+              className="btn"
+              disabled={btnDisabled}
+              onClick={() => handleSelectedPlayers(player)}
+            >
+              {btnDisabled ? "Selected" : "Choose Player"}
+            </button>
           </p>
         </div>
       </div>

@@ -13,14 +13,20 @@ const playersPromise = fetchPlayers();
 function App() {
   const [toggle, setToggle] = useState(true);
   const [availableBalance, setAvailableBalance] = useState(1000000);
-  const handlePrice = (price) => {
-    const convertPriceStringToNumber = parseInt(
-      price.replaceAll(",", "").replace(/[^0-9.]/g, ""),
-    );
-    setAvailableBalance((prev) => prev - convertPriceStringToNumber);
-    return convertPriceStringToNumber;
+  const [players, setPlayers] = useState([]);
+
+  const handlePlayersData = (player) => {
+    const newPlayer = [...players, player];
+    setPlayers(newPlayer);
+    console.log("Player to be added", player);
   };
 
+  const handleRemovePlayer = (playerName) => {
+    const newPlayers = players.filter(
+      (player) => player.player_name !== playerName,
+    );
+    setPlayers(newPlayers);
+  };
   return (
     <>
       <Header availableBalance={availableBalance}></Header>
@@ -41,7 +47,7 @@ function App() {
             onClick={() => setToggle(false)}
             className={`py-2 px-4 border border-gray-200 rounded-r-2xl ${toggle ? "bg-none" : "bg-[#E7FE29]"} border-l-0 cursor-pointer`}
           >
-            Selected <span>(0)</span>
+            Selected <span>({players.length})</span>
           </button>
         </div>
       </div>
@@ -57,10 +63,14 @@ function App() {
             playersPromise={playersPromise}
             availableBalance={availableBalance}
             setAvailableBalance={setAvailableBalance}
+            handlePlayersData={handlePlayersData}
           ></AvailablePlayers>
         </Suspense>
       ) : (
-        <SelectedPlayers></SelectedPlayers>
+        <SelectedPlayers
+          players={players}
+          handleRemovePlayer={handleRemovePlayer}
+        ></SelectedPlayers>
       )}
     </>
   );
