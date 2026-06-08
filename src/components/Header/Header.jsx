@@ -1,7 +1,7 @@
 import navImage from "../../assets/logo.png";
 import coinImage from "../../assets/coin.png";
 
-const Header = () => {
+const Header = ({ availableBalance }) => {
   return (
     <div className="navbar max-w-[1200px] mx-auto">
       <div className="navbar-start">
@@ -58,8 +58,8 @@ const Header = () => {
             <a>Schedules</a>
           </li>
         </ul>
-        <a className="btn">
-          <span>0</span> Coin{" "}
+        <a className="btn ">
+          <span className="totalAmount">{availableBalance}</span> Coin{" "}
           <span>
             <img src={coinImage} alt="" />
           </span>
@@ -67,7 +67,7 @@ const Header = () => {
       </div>
       <div className="navbar-end lg:hidden">
         <a className="btn">
-          <span>0</span> Coin{" "}
+          <span className="totalAmount">{availableBalance}</span> Coin{" "}
           <span>
             <img src={coinImage} alt="" />
           </span>
