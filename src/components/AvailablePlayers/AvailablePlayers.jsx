@@ -7,6 +7,7 @@ const AvailablePlayers = ({
   availableBalance,
   setAvailableBalance,
   handlePlayersData,
+  players: totalPlayers,
 }) => {
   const players = use(playersPromise);
 
@@ -19,6 +20,7 @@ const AvailablePlayers = ({
           availableBalance={availableBalance}
           setAvailableBalance={setAvailableBalance}
           handlePlayersData={handlePlayersData}
+          totalPlayers={totalPlayers}
         ></Player>
       ))}
     </div>

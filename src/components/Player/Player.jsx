@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { FaUserLarge } from "react-icons/fa6";
 import { IoFlag } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 const Player = ({
   player,
   availableBalance,
   setAvailableBalance,
   handlePlayersData,
+  totalPlayers,
 }) => {
   const [btnDisabled, setBtnDisabled] = useState(false);
+
   const {
     bating_style,
     bowling_style,
@@ -24,7 +27,13 @@ const Player = ({
       player.price.replaceAll(",", "").replace(/[^0-9.]/g, ""),
     );
     if (availableBalance < playerPrice) {
-      alert("You don't have enough mone to buy this player");
+      toast("You don't have enough coins to buy this player");
+
+      return;
+    }
+    if (totalPlayers.length === 6) {
+      toast("You have reached your limit");
+
       return;
     }
     setAvailableBalance(availableBalance - playerPrice);

@@ -1,6 +1,6 @@
 import PurchaseDetailsCard from "../PurchaseDetailsCard/PurchaseDetailsCard";
 
-const SelectedPlayers = ({ players, handleRemovePlayer }) => {
+const SelectedPlayers = ({ players, handleRemovePlayer, setToggle }) => {
   return (
     <div className="max-w-300 mx-auto">
       {players.map((player, index) => (
@@ -10,6 +10,9 @@ const SelectedPlayers = ({ players, handleRemovePlayer }) => {
           handleRemovePlayer={handleRemovePlayer}
         ></PurchaseDetailsCard>
       ))}
+      <button onClick={() => setToggle(true)} className="btn bg-[#E7FE29]">
+        Add More Player
+      </button>
     </div>
   );
 };

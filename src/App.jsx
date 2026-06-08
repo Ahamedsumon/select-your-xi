@@ -4,6 +4,7 @@ import AvailablePlayers from "./components/AvailablePlayers/AvailablePlayers";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import SelectedPlayers from "./components/SelectedPlayers/SelectedPlayers";
+import { ToastContainer } from "react-toastify";
 
 const fetchPlayers = async () => {
   const res = await fetch("/data.json");
@@ -12,13 +13,15 @@ const fetchPlayers = async () => {
 const playersPromise = fetchPlayers();
 function App() {
   const [toggle, setToggle] = useState(true);
-  const [availableBalance, setAvailableBalance] = useState(1000000);
+  const [availableBalance, setAvailableBalance] = useState(6000000);
   const [players, setPlayers] = useState([]);
 
   const handlePlayersData = (player) => {
     const newPlayer = [...players, player];
+    if (newPlayer.length > 6) {
+      return;
+    }
     setPlayers(newPlayer);
-    console.log("Player to be added", player);
   };
 
   const handleRemovePlayer = (playerName) => {
@@ -34,7 +37,9 @@ function App() {
       <Hero></Hero>
       <div className=" flex items-center justify-between">
         <h2 className="text-2xl font-bold">
-          {toggle ? "Available Players" : "Selected Players"}
+          {toggle
+            ? "Available Players"
+            : `Selected Players (${players.length}/6)`}
         </h2>
         <div className="font-bold">
           <button
@@ -64,14 +69,17 @@ function App() {
             availableBalance={availableBalance}
             setAvailableBalance={setAvailableBalance}
             handlePlayersData={handlePlayersData}
+            players={players}
           ></AvailablePlayers>
         </Suspense>
       ) : (
         <SelectedPlayers
           players={players}
           handleRemovePlayer={handleRemovePlayer}
+          setToggle={setToggle}
         ></SelectedPlayers>
       )}
+      <ToastContainer />
     </>
   );
 }
