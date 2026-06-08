@@ -37,14 +37,16 @@ const Player = ({
       return;
     }
     setAvailableBalance(availableBalance - playerPrice);
+    toast("Player Selected!!");
     setBtnDisabled(true);
     handlePlayersData(player);
   };
   return (
     <div>
       <div className="card bg-base-100 h-full shadow-sm">
-        <figure className="px-6 pt-6">
+        <figure className="px-2 pt-2">
           <img
+            className=""
             src={player_image}
             alt={`Image of ${player_name}`}
             className="rounded-xl"
@@ -69,7 +71,7 @@ const Player = ({
           <p className="flex items-center justify-between">
             <span className="font-bold">Rating</span> <span>{rating}</span>
           </p>
-          <p className="flex items-center justify-between py-2">
+          <p className="flex items-center justify-between">
             <span className="font-bold">{bating_style}</span>{" "}
             <span>{bowling_style}</span>
           </p>
